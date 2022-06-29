@@ -8,6 +8,8 @@ import math
 import copy
 
 COOKIE = ''
+# Added Authorization
+AUTHORIZATION = ''
 TABLES = {}
 USER = ''
 VERBOSE_MODE = False
@@ -22,9 +24,12 @@ def send_HTTP_request(url, params):
     global COOKIE
     global USER_AGENT
     global REFERER
+    # Added Authorization
+    global AUTHORIZATION
 
     # Create HTTP headers
-    headers = {'Cookie': COOKIE, 'Referer': REFERER, 'User-Agent': USER_AGENT}
+    # Added Authorization
+    headers = {'Cookie': COOKIE, 'Referer': REFERER, 'User-Agent': USER_AGENT, 'Authorization': AUTHORIZATION}
 
     # Check that there's POST data
 
@@ -373,6 +378,8 @@ usage = """HQLmap: args"""
 parser = ArgumentParser(usage)
 parser.add_argument('-u','--url', help='qURL to pentest', dest='url',required=True)
 parser.add_argument('--cookie', help='Cookie to test it', dest='cookie', default="")
+# Added Authorization
+parser.add_argument('--authorization', help='Authorization to test it', dest='authorization', default="")
 parser.add_argument('--user_agent', help='Set the user agent', dest='user_agent', default="HQLmap v0.1")
 parser.add_argument('--referer', help='Set the referer', dest='referer', default="")
 parser.add_argument('-p','--param', help='Param to test', dest='param', required=True)
@@ -404,6 +411,8 @@ parser.add_argument('-v','--verbose', help='Verbose mode', dest='verbose', defau
 opts = parser.parse_args(sys.argv[1:])
 # Setting cookie and verbose mode
 COOKIE = opts.cookie
+# Added Authorization
+AUTHORIZATION = opts.authorization
 VERBOSE_MODE = opts.verbose
 USER_AGENT = opts.user_agent
 REFERER = opts.referer
